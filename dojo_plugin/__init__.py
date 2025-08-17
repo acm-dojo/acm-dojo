@@ -24,7 +24,6 @@ from .utils.error_logging import log_exception
 from .pages.dojos import dojos, dojos_override
 from .pages.dojo import dojo
 from .pages.workspace import workspace
-from .pages.sensai import sensai
 from .pages.users import users
 from .pages.settings import settings_override
 from .pages.discord import discord
@@ -160,7 +159,6 @@ def load(app):
     app.register_blueprint(dojos)
     app.register_blueprint(dojo)
     app.register_blueprint(workspace)
-    app.register_blueprint(sensai)
     app.register_blueprint(discord)
     app.register_blueprint(users)
     app.register_blueprint(course)
