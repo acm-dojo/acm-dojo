@@ -13,13 +13,8 @@ let
     jupyter
     psutil
     pwntools
-    pycryptodome
-    pyroute2
-    r2pipe
     requests
-    ropper
-    scapy
-    selenium
+    rich
   ];
 
   pythonEnv = pkgs.python3.withPackages pythonPackages;
@@ -29,7 +24,7 @@ let
 
     compression = [ zip unzip gzip gnutar ];
 
-    system = [ htop rsync openssh nftables ];
+    system = [ htop rsync openssh nftables git ];
 
     editors = [ vim neovim emacs nano gedit ];
 
@@ -38,12 +33,6 @@ let
     network = [ netcat-openbsd tcpdump wireshark termshark nmap burpsuite ];
 
     debugging = [ strace ltrace gdb pwndbg gef bata24-gef ];
-
-    reversing = [ file ghidra ida-free radare2 cutter angr-management binaryninja-free ];
-
-    web = [ firefox geckodriver ];
-
-    exploitation = [ aflplusplus rappel ropgadget sage ];
   };
 
 in
