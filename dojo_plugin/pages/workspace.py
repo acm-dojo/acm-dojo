@@ -15,8 +15,6 @@ workspace = Blueprint("pwncollege_workspace", __name__)
 port_names = {
     "challenge": 80,
     "terminal": 7681,
-    "code": 8080,
-    "desktop": 6080,
     "desktop-windows": 6082,
 }
 
@@ -26,8 +24,6 @@ port_names = {
 def view_workspace():
     workspace_services = [
         "Terminal",
-        "Code",
-        "Desktop",
     ]
 
     current_challenge = get_current_dojo_challenge()
