@@ -3,11 +3,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
   <div class="container">
     <a href="{{ url_for('views.static_html', route='/') }}" class="brand-mono-bold wordmark">
-      {% if Configs.ctf_name == "pwn.college" %}
-      <span class="brand-white">pwn</span><span class="brand-dot-white">.</span><span class="brand-white">college</span>
-      {% else %}
-      <span class="brand-white">{{ Configs.ctf_name }}</span>
-      {% endif %}
+      <span class="brand-white">acm</span><span class="brand-dot-white">.</span><span class="brand-white">dojo</span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#base-navbars"
             aria-controls="base-navbars" aria-expanded="false" aria-label="Toggle navigation">
