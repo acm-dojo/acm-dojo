@@ -63,8 +63,6 @@
             sudo = import ./core/sudo.nix { inherit pkgs; };
             ssh-entrypoint = import ./core/ssh-entrypoint.nix { inherit pkgs; };
             service = import ./services/service.nix { inherit pkgs; };
-            code-service = import ./services/code.nix { inherit pkgs; };
-            desktop-service = import ./services/desktop.nix { inherit pkgs; };
             terminal-service = import ./services/terminal.nix { inherit pkgs; };
 
             ldd = pkgs.writeShellScriptBin "ldd" ''
@@ -115,8 +113,6 @@
               sudo
               ssh-entrypoint
               service
-              code-service
-              desktop-service
               terminal-service
             ];
 
