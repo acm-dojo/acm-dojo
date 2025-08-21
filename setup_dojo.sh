@@ -8,6 +8,10 @@
 
 set -e
 
+apt install curl -y
+
+curl -fsSL https://get.docker.com | /bin/sh
+
 BRANCH="${1:-master}"
 PORTS="80:80"
 
@@ -37,3 +41,5 @@ docker run \
     -d "$IMAGE_NAME" # -d runs the container in detached mode (in the background).
 
 echo "🎉 Success! The container '$CONTAINER_NAME' is running."
+
+docker exec $CONTAINER_NAME dojo logs
