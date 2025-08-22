@@ -1,41 +1,11 @@
 {% extends "base.html" %}
-{% from "macros/widgets.html" import card %}
 {% from "macros/widgets.html" import dojo_grid %}
 
 {% block content %}
 <div class="container">
   <p><br><br>
-  <h2>Getting Started</h2>
-
-  {{ dojo_grid(categorized_dojos["welcome"], dojo_container_counts) }}
-
-  <p><br><br>
-  <h2>Core Material</h2>
-
-  {{ dojo_grid(categorized_dojos["topic"], dojo_container_counts) }}
-
-  <p><br><br>
-  <h2>Community Material</h2>
-
-  {{ dojo_grid(categorized_dojos["public"], dojo_container_counts) }}
-
-  <p><br><br>
-  <h2>The Courses</h2>
-
-  {{ dojo_grid(categorized_dojos["course"], dojo_container_counts) }}
-
-  {% if categorized_dojos["member"] %}
-  <p><br><br>
-  <h2>Dojos You've Joined</h2>
-
-  {{ dojo_grid(categorized_dojos["member"], dojo_container_counts) }}
-  {% endif %}
-
-  <p><br><br>
-  <h2>Your Dojos</h2>
-
-  {{ dojo_grid(categorized_dojos["admin"], dojo_container_counts, create_icon=True) }}
-
+  <h2>Course Material</h2>
+  {{ dojo_grid(categorized_dojos["course"], dojo_container_counts, create_icon=is_admin()) }}
 </div>
 {% endblock %}
 

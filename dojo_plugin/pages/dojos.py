@@ -3,7 +3,7 @@ import collections
 from flask import Blueprint, render_template, redirect, url_for
 from CTFd.models import db
 from CTFd.utils.user import get_current_user
-from CTFd.utils.decorators import authed_only, admins_only
+from CTFd.utils.decorators import admins_only
 
 from ..models import DojoChallenges, Dojos, DojoAdmins, DojoMembers
 from ..utils.dojo import generate_ssh_keypair
@@ -16,11 +16,7 @@ dojos = Blueprint("pwncollege_dojos", __name__)
 @dojos.route("/dojos")
 def listing(template="dojos.html"):
     categorized_dojos = {
-        "welcome": [],
-        "topic": [],
-        "public": [],
         "course": [],
-        "member": [],
         "admin": [],
     }
 
@@ -49,11 +45,13 @@ def listing(template="dojos.html"):
         dojo_solves = dojo_solves.add_columns(0)
 
     for dojo, solves in dojo_solves:
-        if not (dojo.type == "hidden" or (dojo.type == "example" and dojo.official)):
-            categorized_dojos.setdefault(dojo.type, []).append((dojo, solves))
-            categorized_dojos["member"].extend((dojo_member.dojo, 0) for dojo_member in user_dojo_members
-                                               if dojo_member.dojo == dojo and dojo.type not in ["welcome", "topic", "public"])
-        categorized_dojos["admin"].extend((dojo_admin.dojo, 0) for dojo_admin in user_dojo_admins if dojo_admin.dojo == dojo)
+        # Only show course dojos (type == 'course') on listing. Hidden and example types are always excluded.
+        if dojo.type == "course" and not dojo.type == "hidden":
+            categorized_dojos["course"].append((dojo, solves))
+        
+        categorized_dojos["admin"].extend(
+            (dojo_admin.dojo, 0) for dojo_admin in user_dojo_admins if dojo_admin.dojo == dojo
+        )
 
     dojo_container_counts = collections.Counter(stats["dojo"] for stats in get_container_stats())
 
@@ -61,7 +59,7 @@ def listing(template="dojos.html"):
 
 
 @dojos.route("/dojos/create")
-@authed_only
+@admins_only
 def dojo_create():
     public_key, private_key = generate_ssh_keypair()
     return render_template(
