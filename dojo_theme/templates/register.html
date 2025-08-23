@@ -23,8 +23,7 @@
 
             <p>如果你在平台上遇到技术问题或对练习有疑问，
             请通过课程沟通渠道联系你的助教。我们会及时提供帮助！</p>
-
-            <h2><i class="fas fa-user-plus"></i> 创建账户</h2>
+            
             {% with form = Forms.auth.RegistrationForm() %}
             {% from "macros/forms.html" import render_extra_fields %}
             <form method="post" accept-charset="utf-8" autocomplete="off" role="form" id="registration-form">
