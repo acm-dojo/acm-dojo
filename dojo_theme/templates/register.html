@@ -1,200 +1,101 @@
 {% extends "base.html" %}
 
-{% set commitment_text = "I have read the ground rules and commit to not publish pwn.college writeups on the internet." %}
-
 {% block content %}
 <div class="jumbotron">
-	<div class="container">
-		<h1>Register</h1>
-	</div>
+    <div class="container">
+        <h1>加入 ACM Dojo 训练营</h1>
+    </div>
 </div>
 <div class="container">
-	<div class="row">
-		<div class="col-md-6 offset-md-3">
-			{% include "components/errors.html" %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% include "components/errors.html" %}
 
-			<h2>Ground Rules</h2>
-			<p>When using this platform, please keep several ground rules in mind!</p>
-			<h3>Writeups</h3>
-			<p>The challenges created for pwn.college are educational material, and are used to grade students at Arizona State University.
-      Because of this, we would appreciate that writeups, walkthrough videos, and livestreams of challenge solutions are not posted to the internet.
-      Obviously, we can't stop you from posting things to the internet, but we worked hard to make all of this public, and we would appreciate your help in keeping pwn.college a viable educational platform.</p>
-      <h3>Bug Bounties</h3>
-      <p>Even master hackers have vulnerabilities in their software!
-      If you find a vulnerability in this platform, please <a href="mailto:pwn-college@asu.edu">email</a> us rather than pwn us.
-      We'll appreciate it, and you'll get extra credit (if you're an ASU student) or an awesome scoreboard award!</p>
+            <p>这里提供 Linux Shell 命令和 Git 操作的实践训练。
+            作为课程的一部分，你在此平台上的学习将有助于你的理解和评估。
+            请维护学术诚信：</p>
+            <ul>
+                <li>独立完成挑战以建立真正的技能</li>
+                <li>不与其他学生分享完整解决方案</li>
+                <li>将协作用于 学习 而非 抄袭</li>
+                <li>向助教团队报告任何技术问题</li>
+            </ul>
 
-			<div class="form-group" id="commitment-section">
-				<div class="alert alert-warning">
-					To register, please type the following commitment exactly as shown:
-					<br><br>
-					<strong id="commitment-text">{{ commitment_text }}</strong>
-				</div>
-				<input type="text" id="commitment-input" class="form-control" placeholder="Type the commitment above" autocomplete="off">
-				<small class="form-text text-muted" id="commitment-feedback">
-					Please type the commitment exactly as shown above to enable registration
-				</small>
-			</div>
+            <p>如果你在平台上遇到技术问题或对练习有疑问，
+            请通过课程沟通渠道联系你的助教。我们会及时提供帮助！</p>
 
-      <h2>Sign Up!</h2>
-			{% with form = Forms.auth.RegistrationForm() %}
-			{% from "macros/forms.html" import render_extra_fields %}
-			<form method="post" accept-charset="utf-8" autocomplete="off" role="form" id="registration-form">
-				<div class="form-group">
-					<b>{{ form.name.label }}</b>
-					{{ form.name(class="form-control", value=name) }}
-					<small class="form-text text-muted">
-						Your username on the site
-					</small>
-				</div>
-				<div class="form-group">
-					<b>{{ form.email.label }}</b>
-					{{ form.email(class="form-control", value=email) }}
-					<small class="form-text text-muted">
-						Never shown to the public
-					</small>
-				</div>
-				<div class="form-group">
-					<b>{{ form.password.label }}</b>
-					{{ form.password(class="form-control", value=password) }}
-					<small class="form-text text-muted">
-						Password used to log into your account
-					</small>
-				</div>
+            <h2><i class="fas fa-user-plus"></i> 创建账户</h2>
+            {% with form = Forms.auth.RegistrationForm() %}
+            {% from "macros/forms.html" import render_extra_fields %}
+            <form method="post" accept-charset="utf-8" autocomplete="off" role="form" id="registration-form">
+                <div class="form-group">
+                    <b><i class="fas fa-user"></i> {{ form.name.label }}</b>
+                    {{ form.name(class="form-control", value=name, placeholder="选择一个用户名") }}
+                    <small class="form-text text-muted">
+                        你在平台上的唯一标识符（对教师可见）
+                    </small>
+                </div>
+                <div class="form-group">
+                    <b><i class="fas fa-envelope"></i> {{ form.email.label }}</b>
+                    {{ form.email(class="form-control", value=email, placeholder="your.email@sjtu.edu.cn") }}
+                    <small class="form-text text-muted">
+                        使用你的 SJTU 邮箱地址（用于辨认）
+                    </small>
+                </div>
+                <div class="form-group">
+                    <b><i class="fas fa-lock"></i> {{ form.password.label }}</b>
+                    {{ form.password(class="form-control", value=password, placeholder="创建一个安全密码") }}
+                    <small class="form-text text-muted">
+                        为你的账户安全选择一个强密码
+                    </small>
+                </div>
 
-				{{ form.nonce() }}
-				
-				<input type="hidden" id="commitment-verified" name="commitment_verified" value="">
+                {{ form.nonce() }}
 
-				{{ render_extra_fields(form.extra) }}
+                {{ render_extra_fields(form.extra) }}
 
-				<div class="row pt-3">
-					<div class="col-md-12">
-						{{ form.submit(class="btn btn-md btn-primary btn-outlined float-right btn-disabled", id="register-submit", style="opacity: 0.5; cursor: not-allowed;") }}
-					</div>
-				</div>
+                <div class="row pt-3">
+                    <div class="col-md-12">
+                        {{ form.submit(class="btn btn-lg btn-primary btn-block", id="register-submit") }}
+                    </div>
+                </div>
 
-				{% if Configs.tos_or_privacy %}
-				<div class="row pt-3">
-					<div class="col-md-12 text-center">
-						<small class="text-muted text-center">
-							By registering, you agree to the
-							<a href="{{ Configs.privacy_link }}" rel="noopener" target="_blank">privacy policy</a>
-							and <a href="{{ Configs.tos_link }}" rel="noopener" target="_blank">terms of service</a>
-						</small>
-					</div>
-				</div>
-				{% endif %}
-			</form>
-			{% endwith %}
-		</div>
-	</div>
+                {% if Configs.tos_or_privacy %}
+                <div class="row pt-3">
+                    <div class="col-md-12 text-center">
+                        <small class="text-muted text-center">
+                            注册即表示您同意
+                            <a href="{{ Configs.privacy_link }}" rel="noopener" target="_blank">隐私政策</a>
+                            和 <a href="{{ Configs.tos_link }}" rel="noopener" target="_blank">服务条款</a>
+                        </small>
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+            {% endwith %}
+        </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <style>
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
 }
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const commitmentText = {{ commitment_text | tojson }};
-    const commitmentInput = document.getElementById('commitment-input');
-    const commitmentFeedback = document.getElementById('commitment-feedback');
     const registerButton = document.getElementById('register-submit');
-    const registerForm = document.getElementById('registration-form');
-    const commitmentVerifiedField = document.getElementById('commitment-verified');
-    let commitmentValid = false;
     
-    function normalizeText(text) {
-        return text.toLowerCase().replace(/[^a-z]/g, '').split('').sort().join('');
-    }
-    
-    function validateCommitment() {
-        const userInput = commitmentInput.value.trim();
-        
-        if (userInput === '') {
-            commitmentValid = false;
-            commitmentVerifiedField.value = '';
-            commitmentInput.classList.remove('is-valid', 'is-invalid');
-            commitmentFeedback.textContent = 'Please type the commitment exactly as shown above to enable registration';
-            commitmentFeedback.classList.remove('text-success', 'text-danger');
-            commitmentFeedback.classList.add('text-muted');
-            
-            registerButton.style.opacity = '0.5';
-            registerButton.style.cursor = 'not-allowed';
-            registerButton.classList.add('btn-disabled');
-        } else {
-            const normalizedUser = normalizeText(userInput);
-            const normalizedCommitment = normalizeText(commitmentText);
-            
-            if (normalizedUser === normalizedCommitment) {
-                commitmentValid = true;
-                commitmentVerifiedField.value = 'verified';
-                commitmentInput.classList.remove('is-invalid');
-                commitmentInput.classList.add('is-valid');
-                commitmentFeedback.textContent = 'Thank you for helping keep pwn.college viable!';
-                commitmentFeedback.classList.remove('text-muted', 'text-danger');
-                commitmentFeedback.classList.add('text-success');
-                
-                registerButton.style.opacity = '1';
-                registerButton.style.cursor = 'pointer';
-                registerButton.classList.remove('btn-disabled');
-            } else {
-                commitmentValid = false;
-                commitmentVerifiedField.value = '';
-                commitmentInput.classList.remove('is-valid');
-                commitmentInput.classList.add('is-invalid');
-                commitmentFeedback.textContent = 'Please type the commitment as shown above';
-                commitmentFeedback.classList.remove('text-muted', 'text-success');
-                commitmentFeedback.classList.add('text-danger');
-                
-                registerButton.style.opacity = '0.5';
-                registerButton.style.cursor = 'not-allowed';
-                registerButton.classList.add('btn-disabled');
-            }
-        }
-    }
-    
-    function showCommitmentReminder() {
-        alert('Please type the commitment exactly as shown to enable registration.');
-        document.getElementById('commitment-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        commitmentInput.focus();
-        commitmentInput.style.animation = 'shake 0.5s';
-        setTimeout(() => {
-            commitmentInput.style.animation = '';
-        }, 500);
-    }
-    
-    commitmentInput.addEventListener('input', validateCommitment);
-    commitmentInput.addEventListener('paste', function() {
-        setTimeout(validateCommitment, 10);
-    });
-    
-    registerForm.addEventListener('submit', function(e) {
-        if (!commitmentValid) {
-            e.preventDefault();
-            e.stopPropagation();
-            showCommitmentReminder();
-            return false;
-        }
-        return true;
-    });
-    
-    registerButton.addEventListener('click', function(e) {
-        if (!commitmentValid) {
-            e.preventDefault();
-            e.stopPropagation();
-            showCommitmentReminder();
-            return false;
-        }
-    });
-    
-    validateCommitment();
+    // 设置按钮文本
+    registerButton.innerHTML = '<i class="fas fa-rocket"></i> 加入 CS1953 训练营';
 });
 </script>
 {% endblock %}
