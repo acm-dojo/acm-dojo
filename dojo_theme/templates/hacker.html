@@ -5,17 +5,6 @@
   <div class="jumbotron">
     <div class="container">
       <h1 class="brand-mono">{{ user.name }}</h1>
-      <h1>
-        <a href="{{ url_for('pwncollege_belts.view_belts') }}">
-          {% if belts.users[user.id] %}
-          <span title="Earned on {{belts.users[user.id].date}}">
-            <img src="{{ url_for('pwncollege_belts.view_belt', color=belts.users[user.id].color) }}", class="scoreboard-belt">
-          </span>
-          {% else %}
-          <img src="{{ url_for('pwncollege_belts.view_belt', color='white') }}" class="scoreboard-belt">
-          {% endif %}
-        </a>
-      </h1>
       <h2>
         {% for badge in badges[user.id] %}
         <span title="{{badge.text}}">

@@ -12,6 +12,6 @@ def feed_page():
     initial_events = get_recent_events(limit=20)
     
     return render_template(
-        "feed.html",
-        initial_events=initial_events
+        "error.html",
+        error="Page Not Found"
     )
