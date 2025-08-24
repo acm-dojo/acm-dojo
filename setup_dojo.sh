@@ -70,6 +70,8 @@ docker run \
 
 echo "Success! The container '$CONTAINER_NAME' is running."
 
-docker image prune -a
+echo "Cleaning up unused Docker images and build cache..."
+docker image prune -af
+docker builder prune -f
 
 docker exec "$CONTAINER_NAME" dojo logs
