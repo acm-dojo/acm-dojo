@@ -49,16 +49,6 @@
               {{ form.password(class="form-control") }}
             </div>
 
-            <hr>
-
-            <div class="form-group">
-              <b><label for="hidden">Visibility</label></b>
-              <select class="form-control custom-select" id="hidden" name="hidden" value="{{ user.hidden }}">
-                <option value="False" {{ "selected" if not user.hidden else "" }}>Visible</option>
-                <option value="True" {{ "selected" if user.hidden else "" }}>Hidden</option>
-              </select>
-            </div>
-
 	    {{ render_extra_fields(form.extra) }}
 
             <div id="results" class="form-group">
