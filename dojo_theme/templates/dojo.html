@@ -16,7 +16,7 @@
       <a href="{{ description_edit_url }}" 
          target="_blank" 
          class="github-edit-link"
-         title="Edit on GitHub">
+         title="在 GitHub 上编辑">
         <i class="fas fa-edit"></i>
       </a>
     {% endif %}
@@ -31,7 +31,7 @@
       <figure>
         <a class="text-decoration-none" href="{{ url_for('course.view_course', dojo=dojo.reference_id) }}">
           <i class="fas fa-graduation-cap fa-3x"></i>
-          <figcaption><b>Course</b></figcaption>
+          <figcaption><b>课程</b></figcaption>
         </a>
       </figure>
     </div>
@@ -41,7 +41,7 @@
       <figure>
         <a class="text-decoration-none" href="{{ url_for('pwncollege_dojo.view_dojo_admin', dojo=dojo.reference_id) }}">
           <i class="fas fa-users-cog fa-3x"></i>
-          <figcaption><b>Admin</b></figcaption>
+          <figcaption><b>管理</b></figcaption>
         </a>
       </figure>
     </div>
@@ -51,18 +51,18 @@
   <br>
 
   {% if dojo.award and dojo.award.get("emoji") %}
-  <h2 class="row">Award: <b>{{ dojo.award["emoji"] }}</b></h2>
+  <h2 class="row">奖励: <b>{{ dojo.award["emoji"] }}</b></h2>
   <br>
   {% endif %}
 
   {% if dojo.modules %}
-  <h2 class="row">Stats</h2>
+  <h2 class="row">统计数据</h2>
   {% include "components/stat_dashboard.html" %}
   <div class="row"></div>
 
   <br>
 
-  <h2 class="row">Modules</h2>
+  <h2 class="row">模块</h2>
   <br>
   <ul class="card-list">
     {% for module in dojo.modules %}
@@ -74,12 +74,12 @@
         url_for('pwncollege_dojo.view_dojo_path', dojo=dojo_id, path=module.id),
 	title=module.name or module.id,
         text_lines = [
-          "{} Hacking".format(container_count) if container_count > 0 else "",
+          "{} 正在学习".format(container_count) if container_count > 0 else "",
           "{} / {}".format(
             module.solves(user=user, ignore_visibility=True, ignore_admins=False).count() if user else 0,
             module.visible_challenges() | length
           ),
-	  "hidden" if not module.visible()
+	  "隐藏" if not module.visible()
         ],
         solve_percent=(num_solved / num_challs) * 100 if num_challs else 0,
       ) }}
@@ -90,7 +90,7 @@
   {% if dojo.show_scoreboard %}
   <br>
 
-  <h2 class="row" id="scoreboard-heading">30-Day Scoreboard:</h2>
+  <h2 class="row" id="scoreboard-heading">30天排行榜：</h2>
   <br>
   {% from "macros/scoreboard.html" import scoreboard %}
   {{ scoreboard() }}

@@ -3,20 +3,20 @@
 {% block content %}
 <div class="jumbotron">
   <div class="container">
-    <h1>User Settings</h1>
+    <h1>用户设置</h1>
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-md-2 offset-md-1">
       <div class="nav flex-column nav-pills" role="tablist">
-        <a class="nav-link active" id="settings-profile-tab" data-toggle="pill" href="#profile" role="tab">Profile</a>
-        <a class="nav-link" id="settings-ssh-key-tab" data-toggle="pill" href="#ssh-key" role="tab">SSH Key</a>
+        <a class="nav-link active" id="settings-profile-tab" data-toggle="pill" href="#profile" role="tab">个人资料</a>
+        <a class="nav-link" id="settings-ssh-key-tab" data-toggle="pill" href="#ssh-key" role="tab">SSH 密钥</a>
         {% if discord_enabled %}
         <a class="nav-link" id="settings-discord-tab" data-toggle="pill" href="#discord" role="tab">Discord</a>
         {% endif %}
-	      <a class="nav-link" id="settings-tokens-tab" data-toggle="pill" href="#tokens" role="tab">Access Tokens</a>
-        <a class="nav-link" id="settings-reset-home-tab" data-toggle="pill" href="#reset-home" role="tab">Reset Home</a>
+	      <a class="nav-link" id="settings-tokens-tab" data-toggle="pill" href="#tokens" role="tab">访问令牌</a>
+        <a class="nav-link" id="settings-reset-home-tab" data-toggle="pill" href="#reset-home" role="tab">重置主目录</a>
       </div>
     </div>
     <div class="col-md-8">
@@ -105,12 +105,12 @@
             </div>
 
             <div class="form-group text-right">
-              <input class="btn btn-md btn-primary btn-outlined" id="_submit" name="_submit" type="submit" value="Add">
+              <input class="btn btn-md btn-primary btn-outlined" id="_submit" name="_submit" type="submit" value="添加">
             </div>
-          </form><b><label for="ssh-key-create">How To Create a SSH Key</label></b>
-          <p id="ssh-key-create">You can quickly generate an ssh key by running <code>ssh-keygen -f key -N ''</code> in a terminal on your (unix-friendly) host machine.
-          This will generate files <code>key</code> and <code>key.pub</code>, which are your private and public keys respectively.
-          Once you have linked your <em>public</em> ssh key to your account, you can connect to the dojo over ssh with <code>ssh -i key hacker@pwn.college</code>.</p>
+          </form><b><label for="ssh-key-create">如何创建 SSH 密钥</label></b>
+          <p id="ssh-key-create">你可以在你的（Unix 友好的）主机上的终端中运行 <code>ssh-keygen -f key -N ''</code> 来快速生成 ssh 密钥。
+          这将生成文件 <code>key</code> 和 <code>key.pub</code>，分别是你的私钥和公钥。
+          一旦你将 <em>公</em> ssh 密钥链接到你的账户，你就可以使用 <code>ssh -i key hacker@pwn.college</code> 通过 ssh 连接到竞技场。</p>
         </div>
 
         {% if discord_enabled %}
@@ -122,14 +122,14 @@
               <br>
               <form method="post" id="discord-form" autocomplete="off">
                 <div class="form-group">
-                  <input type="submit" class="btn btn-danger" value="Disconnect Discord Account">
+                  <input type="submit" class="btn btn-danger" value="断开 Discord 账户">
                 </div>
                 <div id="discord-results" class="form-group">
                 </div>
               </form>
             {% else %}
               <br>
-              <a href="/discord/connect" class="btn btn-primary">Connect Discord Account</a>
+              <a href="/discord/connect" class="btn btn-primary">连接 Discord 账户</a>
             {% endif %}
           </div>
         </div>
@@ -151,13 +151,13 @@
 
           {% if tokens %}
           <hr>
-          <h4 class="text-center">Active Tokens</h4>
+          <h4 class="text-center">活跃令牌</h4>
           <table class="table table-striped">
             <thead>
               <tr>
-                <td class="text-center"><b>Created</b></td>
-                <td class="text-center"><b>Expiration</b></td>
-                <td class="text-center"><b>Delete</b></td>
+                <td class="text-center"><b>创建时间</b></td>
+                <td class="text-center"><b>过期时间</b></td>
+                <td class="text-center"><b>删除</b></td>
               </tr>
             </thead>
             <tbody>
@@ -179,9 +179,9 @@
 
         <div class="tab-pane fade" id="reset-home" role="tabpanel">
           <div class="text-center">
-            <h2>Reset Home Directory</h2>
-            <p>Click the button below to reset your home directory. This will zip your current home directory and wipe everything else.</p>
-            <button id="reset-home-button" class="btn btn-danger">Reset Home Directory</button>
+            <h2>重置主目录</h2>
+            <p>点击下面的按钮重置你的主目录。这将打包你当前的主目录并清除其他所有内容。</p>
+            <button id="reset-home-button" class="btn btn-danger">重置主目录</button>
           </div>
           <br>
           <div id="reset-home-results" class="form-group"></div>

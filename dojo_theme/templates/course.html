@@ -30,20 +30,20 @@
 {% block content %}
 <div class="jumbotron">
   <div class="container">
-    <h1>Course</h1>
+    <h1>课程</h1>
   </div>
 </div>
 <div class="container">
   <div class="row">
     <div class="col-md-2 offset-md-1">
       <div class="nav flex-column nav-pills" role="tablist">
-        <a class="nav-link active" id="course-syllabus-tab" data-toggle="pill" href="#syllabus" role="tab">Syllabus</a>
+        <a class="nav-link active" id="course-syllabus-tab" data-toggle="pill" href="#syllabus" role="tab">课程大纲</a>
         {% if user %}
           {% if dojo.course.scripts and dojo.course.scripts.grade %}
-          <a class="nav-link" id="course-grades-tab" data-toggle="pill" href="#grades" role="tab">Grades</a>
+          <a class="nav-link" id="course-grades-tab" data-toggle="pill" href="#grades" role="tab">成绩</a>
           {% endif %}
-          <a class="nav-link" id="course-identity-tab" data-toggle="pill" href="#identity" role="tab">Identity</a>
-          <a class="nav-link" id="course-setup-tab" data-toggle="pill" href="#setup" role="tab">Setup</a>
+          <a class="nav-link" id="course-identity-tab" data-toggle="pill" href="#identity" role="tab">身份信息</a>
+          <a class="nav-link" id="course-setup-tab" data-toggle="pill" href="#setup" role="tab">设置</a>
         {% endif %}
       </div>
     </div>
@@ -66,7 +66,7 @@
             <form method="post" id="identity-form" autocomplete="off">
               <div class="form-group">
                 <b><label for="enter-name">{{ identity.name }}</label></b>
-                <small class="form-text text-muted">This will be shared with the admins of this dojo.</small>
+                <small class="form-text text-muted">这将与此竞技场的管理员共享。</small>
                 <br>
                 <input class="form-control" id="identity" name="identity" type="text" value="{{ identity.value or '' }}">
               </div>
@@ -75,28 +75,28 @@
               </div>
 
               <div class="form-group text-right">
-                <input class="btn btn-md btn-primary btn-outlined" id="_submit" name="_submit" type="submit" value="Update">
+                <input class="btn btn-md btn-primary btn-outlined" id="_submit" name="_submit" type="submit" value="更新">
               </div>
             </form>
           </div>
         {% endif %}
         <div class="tab-pane fade" id="setup" role="tabpanel">
           <ol>
-            <li class="setup-{{ setup.create_account }}">Create a pwn.college account <a href="/register">here</a>. You can use an existing account, or create a new one specifically for the course. The username <strong>will be visible publicly</strong>: if you want to be anonymous, do not use your real name.</li>
+            <li class="setup-{{ setup.create_account }}">创建一个 pwn.college 账户 <a href="/register">这里</a>。你可以使用现有账户，或专门为课程创建一个新账户。用户名 <strong>将公开显示</strong>：如果你想保持匿名，请不要使用你的真实姓名。</li>
             {% if discord_role %}
-              <li class="setup-{{ setup.create_discord }}">Create a Discord account <a href="https://discord.com/register">here</a>. You can use an existing account, or create a new one specifically for the course.</li>
-              <li class="setup-{{ setup.join_discord }}">Join the pwn.college Discord server <a href="https://discord.gg/pwncollege">here</a>. This is where you will be able to discuss the challenges with your peers and see official course announcements.</li>
-              <li class="setup-{{ setup.link_discord }}">Link your pwn.college account with your Discord <a href="/settings#discord">here</a>. As a verified student, you will receive an official course role in Discord for viewing course announcements.</li>
+              <li class="setup-{{ setup.create_discord }}">创建一个 Discord 账户 <a href="https://discord.com/register">这里</a>。你可以使用现有账户，或专门为课程创建一个新账户。</li>
+              <li class="setup-{{ setup.join_discord }}">加入 pwn.college Discord 服务器 <a href="https://discord.gg/pwncollege">这里</a>。这是你能够与同学讨论挑战并查看官方课程公告的地方。</li>
+              <li class="setup-{{ setup.link_discord }}">将你的 pwn.college 账户与 Discord 关联 <a href="/settings#discord">这里</a>。作为经过验证的学生，你将在 Discord 中获得官方课程角色，用于查看课程公告。</li>
             {% endif %}
-            <li class="setup-{{ setup.link_student }}">Link your pwn.college account with your {{ identity.name }} <a href="identity">here</a>. This is how we will be able to give you your official course grade, and how we will be able to verify your student status for an official course role in Discord.</li>
+            <li class="setup-{{ setup.link_student }}">将你的 pwn.college 账户与你的 {{ identity.name }} 关联 <a href="identity">这里</a>。这样我们就能够给你官方课程成绩，以及我们能够验证你的学生身份以获得 Discord 中的官方课程角色。</li>
           </ol>
           {% if setup_complete %}
-            <p>Setup complete!</p>
+            <p>设置完成！</p>
             {% if discord_role %}
-              <p>If you are missing your official course role in Discord, you can force it to update by updating your course identity <a href="identity">here</a>.</p>
+              <p>如果你在 Discord 中缺少官方课程角色，你可以通过更新你的课程身份信息来强制更新 <a href="identity">这里</a>。</p>
             {% endif %}
           {% else %}
-            <p>Setup incomplete.</p>
+            <p>设置未完成。</p>
           {% endif %}
           <p></p>
         </div>

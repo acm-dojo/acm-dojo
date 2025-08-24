@@ -60,11 +60,11 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="text-center mb-4">Live Activity Feed</h1>
+    <h1 class="text-center mb-4">实时活动动态</h1>
     
     <div id="feed-container" class="mx-auto" style="max-width: 800px;">
         <div id="connection-status" class="alert alert-info mb-3" style="display: none;">
-            <span id="connection-message">Connecting to live feed...</span>
+            <span id="connection-message">正在连接到实时动态...</span>
         </div>
         
         <div id="events-list">
@@ -90,40 +90,40 @@
                             <div class="event-content">
                                 {% if event.type == "container_start" %}
                                     {{ render_user(event) }}
-                                    started a 
+                                    开始了一个
                                     <span class="badge bg-{{ 'warning' if event.data.mode == 'practice' else 'primary' }}">
-                                        {{ event.data.mode }}
+                                        {{ '练习' if event.data.mode == 'practice' else '正式' }}
                                     </span>
-                                    container for
+                                    容器，用于
                                     {{ render_dojo_module_challenge(event.data) }}
                                 
                                 {% elif event.type == "challenge_solve" %}
                                     {{ render_user(event) }}
-                                    solved 
+                                    解决了
                                     {{ render_dojo_module_challenge(event.data) }}
                                     {% if event.data.first_blood %}
-                                        <span class="badge bg-danger">FIRST BLOOD!</span>
+                                        <span class="badge bg-danger">首次破解！</span>
                                     {% endif %}
                                 
                                 {% elif event.type == "emoji_earned" %}
                                     {{ render_user(event) }}
-                                    earned the <strong>{{ event.data.emoji }}</strong> emoji!
+                                    获得了 <strong>{{ event.data.emoji }}</strong> 表情符号！
                                     {% if event.data.dojo_name or event.data.dojo_id %}
-                                        <br><small class="text-muted">Completed {{ render_dojo_link(event.data) }}</small>
+                                        <br><small class="text-muted">完成了 {{ render_dojo_link(event.data) }}</small>
                                     {% else %}
                                         <br><small class="text-muted">{{ event.data.reason }}</small>
                                     {% endif %}
                                 
                                 {% elif event.type == "belt_earned" %}
                                     {{ render_user(event) }}
-                                    earned their <strong>{{ event.data.belt_name }}</strong>!
+                                    获得了 <strong>{{ event.data.belt_name }}</strong> 段位！
                                     {% if event.data.dojo_name or event.data.dojo_id %}
-                                        <br><small class="text-muted">Completed {{ render_dojo_link(event.data) }}</small>
+                                        <br><small class="text-muted">完成了 {{ render_dojo_link(event.data) }}</small>
                                     {% endif %}
                                 
                                 {% elif event.type == "dojo_update" %}
                                     {{ render_user(event) }}
-                                    updated {{ render_dojo_link(event.data) or event.data.dojo_id }}
+                                    更新了 {{ render_dojo_link(event.data) or event.data.dojo_id }}
                                     <br><small class="text-muted">{{ event.data.summary }}</small>
                                 {% endif %}
                             </div>
@@ -141,7 +141,7 @@
         {% if not initial_events %}
         <div class="text-center text-muted py-5">
             <i class="fas fa-stream fa-3x mb-3"></i>
-            <p>No recent activity. Waiting for live events...</p>
+            <p>暂无最近活动。正在等待实时事件...</p>
         </div>
         {% endif %}
     </div>

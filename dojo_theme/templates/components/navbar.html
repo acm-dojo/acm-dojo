@@ -11,35 +11,35 @@
     </button>
     <div class="collapse navbar-collapse" id="base-navbars">
       <ul class="navbar-nav mr-auto">
-        {{ navitem("Dojos", url_for("pwncollege_dojos.listing"), "fa-torii-gate") }}
-        {{ navitem("Workspace", url_for("pwncollege_workspace.view_workspace"), "fa-desktop") }}
+        {{ navitem("竞技场", url_for("pwncollege_dojos.listing"), "fa-torii-gate") }}
+        {{ navitem("工作空间", url_for("pwncollege_workspace.view_workspace"), "fa-desktop") }}
       </ul>
       <hr class="d-sm-flex d-md-flex d-lg-none">
       <ul class="navbar-nav ml-md-auto d-block d-sm-flex d-md-flex">
         {% if authed() %}
         {% if is_admin() %}
-          {{ navitem("Admin Panel", url_for("admin.view"), "fa-wrench", shrink=True) }}
+          {{ navitem("管理面板", url_for("admin.view"), "fa-wrench", shrink=True) }}
         {% endif %}
-        {{ navitem("Profile", url_for("pwncollege_users.view_self"), "fa-user-circle", shrink=True) }}
-        {{ navitem("Settings", url_for("views.settings"), "fa-cogs", shrink=True) }}
-        {{ navitem("Logout", url_for("auth.logout"), "fa-sign-out-alt", shrink=True) }}
+        {{ navitem("个人资料", url_for("pwncollege_users.view_self"), "fa-user-circle", shrink=True) }}
+        {{ navitem("设置", url_for("views.settings"), "fa-cogs", shrink=True) }}
+        {{ navitem("退出登录", url_for("auth.logout"), "fa-sign-out-alt", shrink=True) }}
 
         {% else %}
         {% if registration_visible() %}
-        {{ navitem("Register", url_for("auth.register"), "fa-user-plus") }}
+        {{ navitem("注册", url_for("auth.register"), "fa-user-plus") }}
         {% endif %}
 
-        {{ navitem("Login", url_for("auth.login", next=request.full_path), "fa-sign-in-alt") }}
+        {{ navitem("登录", url_for("auth.login", next=request.full_path), "fa-sign-in-alt") }}
         {% endif %}
 
         <li class="nav-item">
           <a class="nav-link close-link" href="javascript:void(0)">
-            <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="Hide Navbar">
+            <span class="d-block" data-toggle="tooltip" data-placement="bottom" title="隐藏导航栏">
               <i class="fas caret-up d-none d-md-block d-lg-none"></i>
             </span>
             <span class="d-sm-block d-md-none d-lg-block text-nowrap">
               <i class="fas fa-caret-up pr-1"></i>
-              <span class="d-lg-none">Hide Navbar</span>
+              <span class="d-lg-none">隐藏导航栏</span>
             </span>
           </a>
         </li>
@@ -49,5 +49,5 @@
 </nav>
 
 <div class="navbar-pulldown">
-  <i class="fas fa-fw fa-caret-down" title="Show navigation bar"></i>
+  <i class="fas fa-fw fa-caret-down" title="显示导航栏"></i>
 </div>

@@ -4,13 +4,13 @@
 {% block content %}
 <div class="container">
   <p><br><br>
-  <h2>The Courses</h2>
+  <h2>课程</h2>
 
   {{ dojo_grid(categorized_dojos["course"], dojo_container_counts) }}
 
   {% if is_admin() %}
   <p><br><br>
-  <h2>Your dojos</h2>
+  <h2>你的竞技场</h2>
   {{ dojo_grid(categorized_dojos["admin"], dojo_container_counts, create_icon=is_admin()) }}
   {% endif %}
 </div>

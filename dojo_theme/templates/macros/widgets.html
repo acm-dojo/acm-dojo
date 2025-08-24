@@ -83,9 +83,9 @@
         url_for("pwncollege_dojo.view_dojo", dojo=dojo.reference_id),
         title=dojo.name or dojo.id,
         text_lines=[
-          "{} Hacking".format(dojo_container_counts.get(dojo.reference_id, 0)) if dojo_container_counts.get(dojo.reference_id, 0) else "",
-          "{} Module{}".format(dojo.modules_count, "" if dojo.modules_count == 1 else "s"),
-          "{} Challenge{}".format(dojo.challenges_count, "" if dojo.challenges_count == 1 else "s"),
+          "{} 正在学习".format(dojo_container_counts.get(dojo.reference_id, 0)) if dojo_container_counts.get(dojo.reference_id, 0) else "",
+          "{} 个模块".format(dojo.modules_count, "" if dojo.modules_count == 1 else ""),
+          "{} 个挑战".format(dojo.challenges_count, "" if dojo.challenges_count == 1 else ""),
         ],
         icon=icon,
         emoji=dojo.award.emoji,

@@ -3,37 +3,37 @@
 {% block content %}
 <div class="jumbotron">
   <div class="container">
-    <h1>The Belted</h1>
+    <h1>段位获得者</h1>
   </div>
 </div>
 <div class="container">
   <p>
-  The hacker ethos goes beyond the acquisition of a satisfactory grade in a college course.
-  A true hacker is never satisfied with the state of their knowledge.
-  They strive, or are irresistably driven towards, the achievement of absolute mastery of technical topics.
+  黑客精神不仅仅是在大学课程中获得满意的成绩。
+  真正的黑客永远不会满足于现有的知识水平。
+  他们努力追求，或被不可抗拒地驱动着去实现对技术主题的绝对掌握。
   </p>
 
   <p>
-  Below is a list of true hackers: those who stared at the yellow box, and rather than flinching, dove in.
+  以下是真正黑客的名单：那些凝视着黄色方框，而不是退缩，而是勇敢投入的人。
   </p>
 
   {% for belt_color in ("blue", "green", "yellow", "orange") %}
-    <h2>{{belt_color.title()}} Belts</h2>
+    <h2>{{{'blue': '蓝', 'green': '绿', 'yellow': '黄', 'orange': '橙'}[belt_color]}}段</h2>
     <p>
     {% if belt_color == "blue" %}
-    It is the rare individual who perseveres against the hardest of challenges, pushing on when the night is at its darkest.
-    The hackers below are truly the most stout of spirit, fighting through countless seemingly-impossible challenges and proving themselves worthy to wear their blue belt among the clouds.
+    是少数能在最困难的挑战中坚持不懈的人，在最黑暗的夜晚中前进。
+    下面的黑客们是真正最坚韧的精神，经历无数看似不可能的挑战，证明自己有资格在云端佩戴蓝段。
     {% elif belt_color == "green" %}
-    A sapling grows toward the sun: a hacker emerges into the light.
-    These individuals have shown a unique ability to see through the haze of uncertainty to the clarity beyond.
-    They are ready to journey into the sky.
+    幼苗向着太阳生长：黑客走向光明。
+    这些人展示了透过不确定性的迷雾看到彼岸清晰的独特能力。
+    他们准备好踏上天空之旅。
     {% elif belt_color == "yellow" %}
-    The sky brightens as the sun rises.
-    The minds of these students are opening, admitting phenomenal cybersecurity concepts that few even suspect to exist.
-    With sunlight comes the possibility of growth and the promise of learning to come.
+    太阳升起，天空变亮。
+    这些学生的思维正在开放，接受着很少有人意识到存在的惊人网络安全概念。
+    随着阳光的到来，带来了成长的可能性和未来学习的承诺。
     {% elif belt_color == "orange" %}
-    Dawn is on the horizon.
-    No longer do the names written below belong to those unknowing cybersecurity: instead, their owners now realize the vast tracts of concepts still unexplored, waiting ready to expand their minds.
+    黎明就在地平线上。
+    下面列出的名字不再属于不了解网络安全的人：相反，他们的主人现在意识到还有大片未探索的概念领域，准备好扩展他们的思维。
     {% endif %}
     </p>
 
@@ -58,17 +58,17 @@
           </i>
         </a>
         {% endif %}
-        <em>(ascended {{ user.date }})</em>
+        <em>(获得于 {{ user.date }})</em>
       </li>
       {% endfor %}
     </ul>
     <br>
   {% endfor %}
 
-  <h2>How to get on the above lists</h2>
-  You, too, can be listed among the legends above.
-  You earn your belts by fully completing the appropriate <a href="{{url_for('pwncollege_dojos.listing')}}">pwn.college dojos</a>.
-  This takes skill, cunning, and perseverance, but you can do it.
-  Good luck.
+  <h2>如何进入上述名单</h2>
+  你也可以被列入上面的传奇之中。
+  通过完全完成相应的 <a href="{{url_for('pwncollege_dojos.listing')}}">pwn.college 竞技场</a>，你可以获得段位。
+  这需要技能、智慧和毅力，但你可以做到。
+  祝你好运。
 </div>
 {% endblock %}

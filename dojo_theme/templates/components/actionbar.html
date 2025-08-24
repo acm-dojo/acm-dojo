@@ -145,7 +145,7 @@
 
 <div class="workspace-controls">
   <div id="workspace-notification-banner"></div>
-  <div title="Change workspace" class="workspace-selector-body workspace-control">
+  <div title="更改工作空间" class="workspace-selector-body workspace-control">
     <i class="fas fa-bars workspace-highlight"></i>
     <select id="workspace-select">
       {% for service in workspace_services %}
@@ -153,24 +153,24 @@
       {% endfor %}
     </select>
   </div>
-  <div title="Enter flag" class="workspace-control workspace-input">
+  <div title="输入标志" class="workspace-control workspace-input">
     <i class="fas fa-flag workspace-highlight"></i>
-    <input id="flag-input" type="text" placeholder="Flag">
+    <input id="flag-input" type="text" placeholder="标志">
     <input type="hidden" id="current-challenge-id" value="{{ challenge.challenge_id }}" data-challenge-name="{{ challenge.name }}">
   </div>
   <div class="workspace-control-spacer"></div>
-  <button id="challenge-restart" title="Restart challenge" class="workspace-control btn btn-md btn-outline-secondary btn-challenge-start">
+  <button id="challenge-restart" title="重启挑战" class="workspace-control btn btn-md btn-outline-secondary btn-challenge-start">
     <i class="fas fa-redo"></i>
   </button>
   {% if challenge.allow_privileged %}
   <button id="workspace-change-privilege"
-      title="Restart {{'unprivileged' if practice else 'privileged'}}"
+      title="重启 {{'非特权模式' if practice else '特权模式'}}"
       class="workspace-control btn btn-md btn-outline-secondary btn-challenge-start"
       data-privileged="{{'true' if practice else 'false'}}">
     <i class="fas fa-{{'unlock' if practice else 'lock'}}"></i>
   </button>
   {% endif %}
-  <button id="fullscreen" title="Toggle fullscreen" class="workspace-control btn btn-md btn-outline-secondary">
+  <button id="fullscreen" title="切换全屏" class="workspace-control btn btn-md btn-outline-secondary">
     <i class="fas fa-expand"></i>
   </button>
 </div>

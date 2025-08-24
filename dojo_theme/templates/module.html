@@ -76,7 +76,7 @@
       <a href="{{ module_description_edit_url }}" 
          target="_blank" 
          class="github-edit-link"
-         title="Edit on GitHub">
+         title="在 GitHub 上编辑">
         <i class="fas fa-edit"></i>
       </a>
     {% endif %}
@@ -87,7 +87,7 @@
 
   {% if module.resources or module.challenges %}
   {% if dojo.is_admin() and not module.show_challenges %}
-  <p><i>This module's challenges are hidden from view. You can see them as the dojo's administrator.</i></p>
+  <p><i>此模块的挑战已隐藏。你可以作为竞技场管理员查看它们。</i></p>
   {% endif %}
 
   <div class="accordion" id="module-content">
@@ -119,7 +119,7 @@
             <div class="embed-responsive embed-responsive-16by9">
               <iframe class="embed-responsive-item" data-src="{{ src }}"></iframe>
             </div>
-            <button onclick="window.open('{{ src.replace('/embed', '') }}', '_blank')" class="btn btn-primary">Open Slides in New Window</button>
+            <button onclick="window.open('{{ src.replace('/embed', '') }}', '_blank')" class="btn btn-primary">在新窗口中打开幻灯片</button>
             {% endif %}
 
             {% elif resource.type == "markdown" %}
@@ -128,7 +128,7 @@
                 <a href="{{ resource_description_edit_urls[resource.resource_index] }}" 
                    target="_blank" 
                    class="github-edit-link"
-                   title="Edit on GitHub">
+                   title="在 GitHub 上编辑">
                   <i class="fas fa-edit"></i>
                 </a>
               {% endif %}
@@ -170,7 +170,7 @@
                 {% if lock_challenge %}
                 <div class="challenge-text-wrapper">
                   <span class="challenge-name-text">{{ challenge.name or challenge.id }}</span>
-                  <span class="challenge-locked-text">Solve <strong></string><span style="color: white">{{ previous_challenge.name or previous_challenge.id }}</span></strong> to unlock this challenge</span>
+                  <span class="challenge-locked-text">解决 <strong></string><span style="color: white">{{ previous_challenge.name or previous_challenge.id }}</span></strong> 以解锁此挑战</span>
                   <span class="invisible-placeholder pr-2">{{ challenge.name or challenge.id }}</span>
                 </div>
                 {% else %}
@@ -179,34 +179,34 @@
                 {% if dojo.is_admin() and (progression_locked or hidden) %}
                 <small><small><small>
                       <i>
-                        {% if progression_locked %}progression locked{% endif %}
-                        {% if progression_locked and hidden %} & {% endif %}
-                        {% if hidden %}hidden{% endif %}
+                        {% if progression_locked %}进度锁定{% endif %}
+                        {% if progression_locked and hidden %} 且 {% endif %}
+                        {% if hidden %}隐藏{% endif %}
                       </i>
-                      &mdash; this challenge is accessible because you are this dojo's administrator
+                      &mdash; 你可以访问此挑战，因为你是此竞技场的管理员
                 </small></small></small>
                 {% endif %}
             </h4>
             <span class="challenge-header-right">
               {% if challenge_container_counts.get(challenge.id, 0) > 0 %}
               <span class="total-hackers">
-                {{ challenge_container_counts.get(challenge.id, 0) }} hacking,
+                {{ challenge_container_counts.get(challenge.id, 0) }} 正在学习，
               </span>
               {% endif %}
               <span class="total-solves">
-                {{ total_solves.get(challenge.challenge_id, 0) }} solves
+                {{ total_solves.get(challenge.challenge_id, 0) }} 次解决
               </span>
             </span>
           {% else %}
             <div class="embed-responsive challenge-description">
               {% if lock_challenge %}
-                <p><em>This challenge is locked</em></p>
+                <p><em>此挑战已锁定</em></p>
               {% else %}
                 {% if challenge_description_edit_urls.get(challenge.id) %}
                   <a href="{{ challenge_description_edit_urls[challenge.id] }}" 
                      target="_blank" 
                      class="github-edit-link"
-                     title="Edit on GitHub">
+                     title="在 GitHub 上编辑">
                     <i class="fas fa-edit"></i>
                   </a>
                 {% endif %}
@@ -216,13 +216,13 @@
             <div class="challenge-init row{% if active %} challenge-hidden{% endif %}">
               <div class="col-md-3 form=group text-center">
                 <button id="challenge-start" type="submit" class="btn btn-md btn-outline-secondary challenge-init">
-                  <i class="fas fa-play fa-2x pr-3"></i>Start
+                  <i class="fas fa-play fa-2x pr-3"></i>开始
                 </button>
               </div>
               {% if challenge.allow_privileged %}
               <div class="col-md-3 form=group text-center">
                 <button id="challenge-priv" type="submit" class="btn btn-md btn-outline-secondary challenge-init">
-                  <i class="fas fa-unlock fa-2x pr-3"></i>Privileged
+                  <i class="fas fa-unlock fa-2x pr-3"></i>特权模式
                 </button>
               </div>
               {% endif %}
@@ -230,7 +230,7 @@
                 <input id="module" type="hidden" value="{{ challenge.module.id }}">
                 <input id="challenge" type="hidden" value="{{ challenge.id }}">
                 <input id="challenge-id" type="hidden" value="{{ challenge.challenge_id }}">
-                <input id="challenge-input" class="challenge-input form-control" type="text" name="answer" placeholder="Flag">
+                <input id="challenge-input" class="challenge-input form-control" type="text" name="answer" placeholder="标志">
               </div>
             </div>
             <div class="challenge-workspace {{ "challenge-hidden" if not active }}">
