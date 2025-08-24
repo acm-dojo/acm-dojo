@@ -1,6 +1,6 @@
-# DOJO
+# ACM DOJO
 
-The ACM Dojo project, forked from pwn.college dojo. We have modified the frontend, the docker-compose file, dependencies, and other stuff. So it IS NOT compatible for you to bring an existing pwn.college dojo instance.
+The ACM Dojo project, forked from [pwn.college dojo](https://github.com/pwncollege/dojo). We have a huge refactor on the frontend, dojo creation logic, monitoring, reverse proxy, dependencies, and other stuff. So it IS NOT compatible for you to bring an existing pwn.college dojo instance config here.
 
 For migration, please refer to
 

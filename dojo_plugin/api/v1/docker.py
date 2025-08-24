@@ -239,11 +239,16 @@ def insert_mounts(container, dojo_challenge):
     # Ensure /mnt exists
     exec_run("/run/dojo/bin/mkdir -p /mnt", container=container)
 
-    root_dir = dojo_challenge.path.parent.parent
+    # Copy from the dojo root (same directory as dojo.yml)
+    root_dir = dojo_challenge.dojo.path
     for mount_id in mounts:
         try:
-            # Source folder: <challenge_dir>/<mount_id>
-            src = dojo_challenge.path / mount_id
+            # Basic validation: disallow nested or absolute paths in mount IDs
+            if "/" in mount_id or "\\" in mount_id or mount_id.strip() != mount_id or not mount_id:
+                logger.warning(f"Invalid mount id '{mount_id}'; skipping")
+                continue
+            # Source folder: <dojo_root_dir>/<mount_id>
+            src = root_dir / mount_id
             if not src.exists() or not src.is_dir():
                 logger.warning(f"Mount '{mount_id}' not found at {src}; skipping")
                 continue
