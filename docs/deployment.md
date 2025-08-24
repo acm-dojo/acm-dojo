@@ -65,8 +65,14 @@ In order for this to work correctly, you must correctly point the domain at the 
 
 The DOJO uses Caddy as its reverse proxy with automatic HTTPS certificate management. To configure the public-facing domain for your DOJO:
 
-1. Create a `.env` file in your project's root directory
-2. Set the `VIRTUAL_HOST` variable to your domain: `VIRTUAL_HOST=example.com`
+1. Get your own Caddyfile. You can execute:
+
+```bash
+cp ./caddy/Caddyfile.example ./caddy/Caddyfile
+```
+
+2. If you want to customize it further, you can edit the `Caddyfile` as needed, to add your domain name. For default, it do not configure any domain name.
+
 
 Caddy will automatically:
 - Acquire SSL certificates from Let's Encrypt

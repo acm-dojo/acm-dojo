@@ -39,7 +39,14 @@ Netdata provides all the functionality of the previous monitoring stack in a sin
 Caddy combines reverse proxy and SSL management in a single modern container.
 
 ### Migration Steps
-1. Set `VIRTUAL_HOST` environment variable in `.env` file
+1. Get your own Caddyfile. You can execute:
+
+```bash
+cp ./caddy/Caddyfile.example ./caddy/Caddyfile
+```
+
+and if you want to customize it further, you can edit the `Caddyfile` as needed, to add your domain name. For default, it do not configure any domain name.
+
 2. Caddy automatically handles SSL certificates and renewal
 3. Remove old Nginx configuration files (see cleanup section below)
 
