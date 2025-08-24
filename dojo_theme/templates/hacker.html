@@ -25,22 +25,6 @@
         {% endfor %}
       </h2>
 
-
-      {% if user.affiliation %}
-        <h3 class="d-inline-block">
-          <span class="badge badge-primary">{{ user.affiliation }}</span>
-        </h3>
-      {% endif %}
-
-      {% if user.country %}
-        <h3 class="d-inline-block">
-          <span class="badge badge-primary">
-            <i class="flag-{{ user.country.lower() }}"></i>
-            {{ lookup_country_code(user.country) }}
-          </span>
-        </h3>
-      {% endif %}
-
       {% for field in user.fields %}
         <h3 class="d-block">
           {{ field.name }}: {{ field.value }}
@@ -55,24 +39,6 @@
           </a>
         {% endif %}
       </div>
-    </div>
-    <div class="social-share">
-      {% if request.path == url_for('pwncollege_users.view_self') %}
-      <a href="https://linkedin.com/share?url={{ url_for('pwncollege_users.view_other', user_id=user.id, _external=True) }}"
-          class="share-button"
-          target="_blank"
-          aria-label="Post on LinkedIn">
-          <img src="{{ url_for('views.themes', path='img/dojo/linkedin_logo.svg') }}">
-          <span title="Post on LinkedIn"></span>Post
-      </a>
-      <a href="https://twitter.com/intent/tweet?url={{ url_for('pwncollege_users.view_other', user_id=user.id, _external=True) }}" 
-          class="share-button"
-          target="_blank"
-          aria-label="Post on X">
-          <img src="{{ url_for('views.themes', path='img/dojo/x_logo.svg') }}">
-          <span title="Post on X"></span>Post
-      </a>
-      {% endif %}
     </div>
       <div id="activity-tracker" user-id="{{ user.id }}"></div> 
   </div>
