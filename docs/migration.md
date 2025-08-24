@@ -4,11 +4,7 @@ This document outlines the migration from the complex monitoring and reverse pro
 
 ## Overview of Changes
 
-The DOJO stack has been significantly simplified to reduce complexity, resource usage, and maintenance overhead:
-
-### Old Stack → New Stack
-- **6-service monitoring stack** → **Single Netdata container**
-- **2-service reverse proxy** → **Single Caddy container**
+The DOJO stack has been significantly simplified to reduce complexity, resource usage, and maintenance overhead.
 
 ## Monitoring Stack Migration
 
@@ -30,7 +26,7 @@ Netdata provides all the functionality of the previous monitoring stack in a sin
 
 ### Migration Steps
 1. No manual migration required - Netdata automatically discovers existing containers
-2. Access monitoring at `http://your-host:19999` (internal access only by default)
+2. Access monitoring at `http://your-host:80/_netdata` (internal access only by default)
 3. Remove old monitoring configuration files (see cleanup section below)
 
 ## Reverse Proxy Migration
@@ -40,11 +36,7 @@ Netdata provides all the functionality of the previous monitoring stack in a sin
 - **acme-companion** - SSL certificate management companion
 
 ### Replacement: Caddy
-Caddy combines reverse proxy and SSL management in a single modern container:
-- **Automatic HTTPS** - Built-in Let's Encrypt integration
-- **Zero configuration** - Configured via Docker labels
-- **Modern architecture** - Memory-safe, efficient implementation
-- **Automatic certificate renewal** - No manual certificate management
+Caddy combines reverse proxy and SSL management in a single modern container.
 
 ### Migration Steps
 1. Set `VIRTUAL_HOST` environment variable in `.env` file
@@ -56,14 +48,7 @@ Caddy combines reverse proxy and SSL management in a single modern container:
 ### New Configuration Method
 Instead of managing separate configuration files, everything is now configured through:
 - **Docker Compose labels** - For reverse proxy configuration
-- **Environment variables** - For domain configuration
 - **Auto-discovery** - For monitoring (no configuration needed)
-
-### Required Configuration
-Create or update your `.env` file in the project root:
-```bash
-VIRTUAL_HOST=your-domain.com
-```
 
 This single variable configures:
 - Caddy reverse proxy routing
@@ -123,12 +108,11 @@ The following variables in `dojo-init` are deprecated but maintained for compati
 ## Troubleshooting
 
 ### Monitoring Issues
-- **Access Netdata dashboard**: Visit `http://your-host:19999`
+- **Access Netdata dashboard**: Visit `http://your-host:80/_netdata`
 - **Check container logs**: `docker logs netdata`
 - **Verify auto-discovery**: Netdata should automatically detect all containers
 
 ### Reverse Proxy Issues
-- **Check domain configuration**: Verify `VIRTUAL_HOST` in `.env` file
 - **SSL certificate issues**: Check Caddy logs with `docker logs caddy`
 - **Port conflicts**: Ensure ports 80 and 443 are available
 
@@ -136,12 +120,3 @@ The following variables in `dojo-init` are deprecated but maintained for compati
 - **Old containers still running**: Remove old monitoring containers manually
 - **Configuration conflicts**: Ensure old config files are removed
 - **DNS issues**: Verify domain points to correct IP address
-
-## Support
-
-For issues during migration:
-1. Check container logs: `docker logs <container-name>`
-2. Verify configuration: Review `.env` file and docker-compose.yml
-3. Open an issue: Include logs and configuration details
-
-The simplified stack provides the same functionality with significantly reduced complexity and resource requirements.

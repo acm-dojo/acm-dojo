@@ -1,3 +1,9 @@
 :80 {
-    reverse_proxy ctfd:8000
+     handle_path /_netdata* {
+        reverse_proxy netdata:19999
+    }
+    
+    handle {
+        reverse_proxy ctfd:8000
+    }
 }

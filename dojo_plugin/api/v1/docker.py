@@ -231,6 +231,31 @@ def insert_challenge(container, as_user, dojo_challenge):
     )
     exec_run("/run/dojo/bin/find /challenge/ -mindepth 1 -exec /run/dojo/bin/chmod 4755 {} \;", container=container)
 
+def insert_mounts(container, dojo_challenge):
+    mounts = getattr(dojo_challenge, "mounts", []) or []
+    if not mounts:
+        return
+
+    # Ensure /mnt exists
+    exec_run("/run/dojo/bin/mkdir -p /mnt", container=container)
+
+    root_dir = dojo_challenge.path.parent.parent
+    for mount_id in mounts:
+        try:
+            # Source folder: <challenge_dir>/<mount_id>
+            src = dojo_challenge.path / mount_id
+            if not src.exists() or not src.is_dir():
+                logger.warning(f"Mount '{mount_id}' not found at {src}; skipping")
+                continue
+            # Create destination and copy
+            dest = f"/mnt/{mount_id}"
+            exec_run(f"/run/dojo/bin/mkdir -p {dest}", container=container)
+            container.put_archive(dest, resolved_tar(src, root_dir=root_dir))
+            # Root-own everything we copied
+            exec_run(f"/run/dojo/bin/chown -R root:root {dest}", container=container)
+        except Exception:
+            logger.exception(f"Error inserting mount '{mount_id}' for challenge {dojo_challenge.reference_id}")
+
 
 def insert_flag(container, flag):
     flag = f"pwn.college{{{flag}}}"
@@ -289,6 +314,7 @@ def start_challenge(user, dojo_challenge, practice, *, as_user=None):
     )
 
     insert_challenge(container, as_user, dojo_challenge)
+    insert_mounts(container, dojo_challenge)
 
     if practice:
         flag = "practice"

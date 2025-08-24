@@ -203,7 +203,7 @@ services:
         condition: service_started
 
   netdata:
-    image: netdata/netdata
+    image: netdata/netdata:v.1.46.0
     container_name: netdata
     hostname: C202508191166739
     restart: always
