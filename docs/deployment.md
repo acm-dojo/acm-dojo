@@ -61,6 +61,29 @@ This will switch from the default development settings to production settings, w
 In order to change where the host is serving from, you can modify `DOJO_HOST`; for example: `-e DOJO_HOST=example.com`.
 In order for this to work correctly, you must correctly point the domain at the server's IP via DNS.
 
+### Reverse Proxy Configuration
+
+The DOJO uses Caddy as its reverse proxy with automatic HTTPS certificate management. To configure the public-facing domain for your DOJO:
+
+1. Create a `.env` file in your project's root directory
+2. Set the `VIRTUAL_HOST` variable to your domain: `VIRTUAL_HOST=example.com`
+
+Caddy will automatically:
+- Acquire SSL certificates from Let's Encrypt
+- Handle certificate renewal
+- Redirect HTTP traffic to HTTPS
+- Proxy requests to the CTFd application
+
+### Monitoring
+
+The DOJO includes Netdata for comprehensive system and container monitoring. Netdata provides:
+- Real-time system metrics
+- Container resource monitoring
+- Auto-discovery of running services
+- Zero-configuration setup
+
+Netdata dashboard is accessible on port 19999 (by default not exposed externally for security).
+
 More of these configuration options (and defaults) can be found in [./dojo/dojo-init](./dojo/dojo-init).
 
 ## Updating
@@ -95,6 +118,33 @@ Dojos are contained within git repositories.
 Refer to [the example dojo](https://github.com/pwncollege/example-dojo) for more information.
 
 If configured properly, the dojo will store the hourly database backups into an S3 bucket of your choosing.
+
+## Obsolete Configuration Cleanup
+
+If you're upgrading from an older version of the DOJO that used the complex monitoring stack (Splunk, Prometheus, Grafana, cAdvisor, Node Exporter) and nginx-proxy reverse proxy, the following files and directories are no longer needed and can be safely removed:
+
+### Obsolete Monitoring Files
+- `/opt/pwn.college/splunk/default.yml` - Splunk configuration
+- `prometheus/prometheus.yml` - Prometheus configuration
+- `grafana/datasource.yml` - Grafana data source configuration
+- Any custom Prometheus target generation scripts
+
+### Obsolete Reverse Proxy Files
+- Nginx configuration files (e.g., in `/nginx-proxy/etc/nginx/vhost.d/`)
+- ACME companion certificate configuration files
+
+These legacy components have been replaced with:
+- **Netdata** - Single, zero-configuration monitoring solution
+- **Caddy** - Modern reverse proxy with automatic HTTPS
+
+The new configuration is handled entirely through the docker-compose.yml and environment variables.
+
+### Legacy Configuration Variables
+
+For compatibility, the following configuration variables are still present in `dojo-init` but are deprecated:
+- `ENABLE_SPLUNK` - Maintained for backward compatibility but defaults to `false`
+
+These variables will be removed in a future version. New deployments should rely on Netdata for monitoring.
 
 ## Multi-node Deployment
 

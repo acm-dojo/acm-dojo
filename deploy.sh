@@ -202,8 +202,8 @@ log_endgroup
 if [ "$START" == "yes" -a "$MULTINODE" == "yes" ]; then
 	log_newgroup "Setting up multi-node cluster"
 
-	# Disconnect nginx-proxy from workspace_net for multinode routing to work
-	docker exec "$DOJO_CONTAINER" docker network disconnect workspace_net nginx-proxy 2>/dev/null || true
+	# Disconnect caddy from workspace_net for multinode routing to work
+	docker exec "$DOJO_CONTAINER" docker network disconnect workspace_net caddy 2>/dev/null || true
 
 	docker exec "$DOJO_CONTAINER" dojo-node refresh
 	MAIN_KEY=$(docker exec "$DOJO_CONTAINER" cat /data/wireguard/publickey)

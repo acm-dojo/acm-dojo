@@ -127,13 +127,15 @@ Inside the "outer" component:
 ### Container Services
 The docker-compose.yml defines these services:
 - `db` - PostgreSQL database
+- `pgbouncer` - Connection pooling for PostgreSQL
 - `cache` - Redis cache
 - `ctfd` - Main CTFd application
-- `nginx` - Reverse proxy with SSL
+- `caddy` - Modern reverse proxy with automatic HTTPS
 - `sshd` - SSH access service
 - `homefs` - Home directory management
-- `workspacefs` - Workspace filesystem overlay
-- Monitoring stack (Prometheus, Grafana, Splunk)
+- `dojofs` - Workspace filesystem overlay
+- `netdata` - All-in-one monitoring solution
+- `watchdog` - Container cleanup service
 
 ### Security Model
 - Challenges run as setuid binaries

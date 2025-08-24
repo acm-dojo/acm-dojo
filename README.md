@@ -1,9 +1,10 @@
 # DOJO
 
-The pwn.college DOJO.
+The ACM Dojo project, forked from pwn.college dojo. We have modified the frontend, the docker-compose file, dependencies, and other stuff. So it IS NOT compatible for you to bring an existing pwn.college dojo instance.
 
-The best way to understand the DOJO is to experience it.
-Try it out at [pwn.college](https://pwn.college).
+For migration, please refer to
+
+- [Migration](./docs/migration.md)
 
 For more information, please check out our [📚 Documentation](./docs):
 - [📜 History](./docs/history.md)
@@ -11,13 +12,3 @@ For more information, please check out our [📚 Documentation](./docs):
 - [🚀 Deployment](./docs/deployment.md)
 - [🚩 Challenge](./docs/challenge.md)
 - [💻 Development](./docs/development.md)
-
-Have more questions? Open an [❓ Issue](../../issues) or reach out to us on our [💬 Discord](https://discord.gg/pwncollege).
-
-## Contributing
-
-We love Pull Requests! 🌟
-Have a small update?
-Send a PR so everyone can benefit.
-For more substantial changes, open an issue to ensure we're on the same page.
-Together, we make this project better for all! ✨
