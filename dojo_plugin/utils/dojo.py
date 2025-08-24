@@ -158,6 +158,9 @@ DOJO_SPEC = Schema({
 
         Optional("auxiliary", default={}, ignore_extra_keys=True): dict,
     }],
+    Optional("mounts", default=[]): [{
+        "id": ID_REGEX,
+    }],
     Optional("pages", default=[]): [str],
     Optional("files", default=[]): [Or(
         {

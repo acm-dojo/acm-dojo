@@ -4,3 +4,5 @@ opt/
 sensai/
 data/
 cache/
+.venv/
+caddy/Caddyfile

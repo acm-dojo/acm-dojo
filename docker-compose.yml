@@ -38,7 +38,7 @@ services:
       - "4201:4201"
 
   caddy:
-    image: caddy:2
+    image: caddy:latest
     container_name: caddy
     restart: always
     ports:
@@ -47,6 +47,7 @@ services:
       - "443:443/udp"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
 
@@ -73,9 +74,6 @@ services:
         nofile:
             soft: 32768
             hard: 1048576
-    labels:
-      caddy: "${VIRTUAL_HOST}"
-      caddy.reverse_proxy: "ctfd:8000"
     environment:
       - UPLOAD_FOLDER=/var/uploads
       - DATABASE_URL=postgresql+psycopg2://${DB_USER}:${DB_PASS}@pgbouncer:5432/${DB_NAME}
@@ -208,8 +206,6 @@ services:
     image: netdata/netdata
     container_name: netdata
     hostname: C202508191166739
-    ports:
-      - 19999:19999
     restart: always
     cap_add:
       - SYS_PTRACE

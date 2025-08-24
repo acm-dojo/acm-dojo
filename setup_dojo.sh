@@ -40,7 +40,6 @@ if ! docker info >/dev/null 2>&1; then
 fi
 
 BRANCH="${1:-master}"
-PORTS="80:80"
 
 echo "Starting setup for branch: $BRANCH"
 
@@ -60,13 +59,17 @@ fi
 echo "Building the Docker image... this may take a while."
 docker build --build-arg BUILDKIT_CONTEXT_KEEP_GIT_DIR=1 -t "$IMAGE_NAME" .
 
-echo "Running new container with port forwarding ($PORTS)..."
+echo "Running new container with port forwarding (80:80, 443:443, 443:443/udp, 19999:19999)..."
 docker run \
     --privileged \
     --name "$CONTAINER_NAME" \
-    -p "$PORTS" \
+    -p "80:80" \
+    -p "443:443" \
+    -p "443:443/udp" \
     -d "$IMAGE_NAME"
 
 echo "Success! The container '$CONTAINER_NAME' is running."
+
+docker image prune -a
 
 docker exec "$CONTAINER_NAME" dojo logs
