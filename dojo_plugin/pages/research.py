@@ -8,4 +8,4 @@ research = Blueprint("research", __name__)
 
 @research.route("/research")
 def view_research():
-    return render_template("research.html")
+    return render_template("error.html", error="Page Not Found")
