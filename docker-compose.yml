@@ -80,8 +80,8 @@ services:
       - REDIS_URL=redis://cache:6379
       - WORKERS=8
       - LOG_FOLDER=/var/log/CTFd
-      - ACCESS_LOG=-
-      - ERROR_LOG=-
+      - ACCESS_LOG=/var/log/CTFd/access
+      - ERROR_LOG=/var/log/CTFd/error
       - REVERSE_PROXY=true
       - SERVER_SENT_EVENTS=false
       - SECRET_KEY=${SECRET_KEY}
@@ -100,6 +100,7 @@ services:
       - DISCORD_GUILD_ID=${DISCORD_GUILD_ID}
       - INTERNET_FOR_ALL=${INTERNET_FOR_ALL}
       - VIRTUAL_HOST=${VIRTUAL_HOST} # Still needed for the Caddy label
+      - VIRTUAL_PORT=8000
       - MAC_HOSTNAME=${MAC_HOSTNAME}
       - MAC_USERNAME=${MAC_USERNAME}
     volumes:
