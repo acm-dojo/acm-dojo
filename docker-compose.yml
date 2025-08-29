@@ -37,29 +37,55 @@ services:
     ports:
       - "4201:4201"
 
-  caddy:
-    image: caddy:latest
-    container_name: caddy
+  nginx-proxy:
+    container_name: nginx-proxy
+    profiles:
+      - main
     restart: always
+    image: nginxproxy/nginx-proxy:1.5
     ports:
       - "80:80"
       - "443:443"
-      - "443:443/udp"
+    environment:
+      - DEFAULT_HOST=${DOJO_HOST}
+      - TRUST_DOWNSTREAM_PROXY=false
+      - LOG_JSON=true
     volumes:
+      - conf:/etc/nginx/conf.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - ./nginx-proxy/etc/nginx/vhost.d:/etc/nginx/vhost.d
+      - ./nginx-proxy/etc/nginx/conf.d/pwn-trace-id.conf:/etc/nginx/conf.d/pwn-trace-id.conf:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      default:
+      workspace_net:
+        aliases:
+          - nginx
+        ipv4_address: 10.0.0.3
+
+  acme-companion:
+    container_name: nginx-proxy-acme
+    profiles:
+      - main
+    restart: always
+    image: nginxproxy/acme-companion:2.3
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
 
   ctfd:
     container_name: ctfd
     profiles:
       - main
+    restart: always
     hostname: ctfd
     build: /opt/CTFd
     platform: linux/amd64
     user: root
-    restart: always
     entrypoint: ""
     command:
       - /bin/sh
@@ -80,8 +106,8 @@ services:
       - REDIS_URL=redis://cache:6379
       - WORKERS=8
       - LOG_FOLDER=/var/log/CTFd
-      - ACCESS_LOG=/var/log/CTFd/access
-      - ERROR_LOG=/var/log/CTFd/error
+      - ACCESS_LOG=-
+      - ERROR_LOG=-
       - REVERSE_PROXY=true
       - SERVER_SENT_EVENTS=false
       - SECRET_KEY=${SECRET_KEY}
@@ -99,8 +125,9 @@ services:
       - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
       - DISCORD_GUILD_ID=${DISCORD_GUILD_ID}
       - INTERNET_FOR_ALL=${INTERNET_FOR_ALL}
-      - VIRTUAL_HOST=${VIRTUAL_HOST} # Still needed for the Caddy label
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
       - VIRTUAL_PORT=8000
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
       - MAC_HOSTNAME=${MAC_HOSTNAME}
       - MAC_USERNAME=${MAC_USERNAME}
     volumes:
@@ -236,8 +263,10 @@ services:
       - workspace_net
 
 volumes:
-  caddy_data:
-  caddy_config:
+  conf:
+  html:
+  certs:
+  acme:
 
 networks:
   default:
