@@ -15,7 +15,6 @@ workspace = Blueprint("pwncollege_workspace", __name__)
 port_names = {
     "challenge": 80,
     "terminal": 7681,
-    "desktop-windows": 6082,
 }
 
 

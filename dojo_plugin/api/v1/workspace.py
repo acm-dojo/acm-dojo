@@ -34,44 +34,10 @@ class view_desktop(Resource):
         if not container:
             return {"active": False}
 
-        if service == "desktop":
-            interact_password = container_password(container, "desktop", "interact")
-            view_password = container_password(container, "desktop", "view")
-
-            if user_id and password:
-                if not hmac.compare_digest(password, interact_password) and not hmac.compare_digest(password, view_password):
-                    abort(403)
-                password = password[:8]
-            else:
-                password = interact_password[:8]
-
-            view_only = user_id is not None
-            service_param = "~".join(("desktop", str(user.id), container_password(container, "desktop")))
-
-            vnc_params = {
-                "autoconnect": 1,
-                "reconnect": 1,
-                "reconnect_delay": 200,
-                "resize": "remote",
-                "path": url_for("pwncollege_workspace.forward_workspace", service=service_param, service_path="websockify"),
-                "view_only": int(view_only),
-                "password": password,
-            }
-            iframe_src = url_for("pwncollege_workspace.forward_workspace", service=service_param, service_path="vnc.html", **vnc_params)
-
-        elif service == "desktop-windows":
-            service_param = "~".join(("desktop-windows", str(user.id), container_password(container, "desktop-windows")))
-            vnc_params = {
-                "autoconnect": 1,
-                "reconnect": 1,
-                "reconnect_delay": 200,
-                "resize": "local",
-                "path": url_for("pwncollege_workspace.forward_workspace", service=service_param, service_path="websockify"),
-                "password": "password",
-            }
-            iframe_src = url_for("pwncollege_workspace.forward_workspace", service=service_param, service_path="vnc.html", **vnc_params)
-        else:
+        if service == "terminal":
             iframe_src = f"/workspace/{service}/"
+        else:
+            return {"active": False}
 
         if start_on_demand_service(user, service) is False:
             return {"active": False}
