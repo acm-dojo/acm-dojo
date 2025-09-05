@@ -20,19 +20,19 @@ let
   pythonEnv = pkgs.python3.withPackages pythonPackages;
 
   tools = with pkgs; {
-    build = [ gcc gnumake cmake qemu ];
+    build = [ gcc gnumake cmake git ];
 
     compression = [ zip unzip gzip gnutar ];
 
-    system = [ htop rsync openssh nftables git ];
+    system = [ htop rsync openssh nftables git neofetch ];
 
     editors = [ vim neovim emacs nano gedit ];
 
     terminal = [ tmux screen kitty.terminfo ];
 
-    network = [ netcat-openbsd tcpdump wireshark termshark nmap burpsuite ];
+    # network = [ netcat-openbsd tcpdump wireshark termshark nmap burpsuite ];
 
-    debugging = [ strace ltrace gdb pwndbg gef bata24-gef ];
+    # debugging = [ strace ltrace gdb pwndbg gef bata24-gef ];
   };
 
 in
@@ -44,9 +44,4 @@ in
     ++ tools.system
     ++ tools.editors
     ++ tools.terminal
-    ++ tools.network
-    ++ tools.debugging
-    ++ tools.reversing
-    ++ tools.web
-    ++ tools.exploitation;
 }

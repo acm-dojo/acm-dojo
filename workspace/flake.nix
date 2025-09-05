@@ -141,7 +141,7 @@
 
           in
           {
-            default = buildDojoEnv "core" corePackages;
+            default = buildDojoEnv "full" fullPackages;
             core = buildDojoEnv "core" corePackages;
             full = buildDojoEnv "full" fullPackages;
           };
