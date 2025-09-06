@@ -101,7 +101,7 @@
               ncurses
               nettools
               procps
-              python3
+              (python3.withPackages (ps: with ps; [ rich ]))
               util-linux
               wget
               which
@@ -114,6 +114,12 @@
               ssh-entrypoint
               service
               terminal-service
+            ] ++ [
+              pkgs.gzip
+              pkgs.gnutar  
+              pkgs.zip
+              pkgs.neofetch
+              pkgs.htop
             ];
 
             fullPackages = corePackages ++ additional.packages;
@@ -141,7 +147,7 @@
 
           in
           {
-            default = buildDojoEnv "full" fullPackages;
+            default = buildDojoEnv "core" corePackages;
             core = buildDojoEnv "core" corePackages;
             full = buildDojoEnv "full" fullPackages;
           };
