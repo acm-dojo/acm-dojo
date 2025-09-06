@@ -80,8 +80,6 @@
               exec "$ldd" "$@"
             '';
 
-            additional = import ./additional/additional.nix { inherit pkgs; };
-
             corePackages = with pkgs; [
               bashInteractive
               cacert
@@ -116,14 +114,19 @@
               terminal-service
             ] ++ [
               pkgs.gzip
-              pkgs.gnutar  
+              pkgs.gnutar
               pkgs.zip
+              pkgs.unzip
               pkgs.neofetch
               pkgs.htop
+              pkgs.vim
+              pkgs.neovim
+              pkgs.nano
+              pkgs.screen
+              pkgs.tmux
+              pkgs.git
             ];
-
-            fullPackages = corePackages ++ additional.packages;
-
+            
             buildDojoEnv =
               name: paths:
               let
@@ -149,7 +152,7 @@
           {
             default = buildDojoEnv "core" corePackages;
             core = buildDojoEnv "core" corePackages;
-            full = buildDojoEnv "full" fullPackages;
+            full = buildDojoEnv "full" corePackages;
           };
       };
 
