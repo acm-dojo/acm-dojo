@@ -232,8 +232,9 @@ def insert_challenge(container, as_user, dojo_challenge):
     exec_run("/run/dojo/bin/find /challenge/ -mindepth 1 -exec /run/dojo/bin/chmod 4755 {} \;", container=container)
 
 def insert_mounts(container, dojo_challenge):
-    mounts = getattr(dojo_challenge, "mounts", []) or []
+    mounts: None | list[dict[str, str]] = getattr(dojo_challenge, "mounts", []) or []
     if not mounts:
+        logger.warning("This challenge does not contain mounts")
         return
 
     # Ensure /mnt exists
@@ -241,8 +242,12 @@ def insert_mounts(container, dojo_challenge):
 
     # Copy from the dojo root (same directory as dojo.yml)
     root_dir = dojo_challenge.dojo.path
-    for mount_id in mounts:
+    for mount_elem in mounts:
         try:
+            if not mount_elem["id"]:
+                logger.warning(f"Mount '{mount_elem}' does not contain id")
+                continue
+            mount_id: str = mount_elem["id"]
             # Basic validation: disallow nested or absolute paths in mount IDs
             if "/" in mount_id or "\\" in mount_id or mount_id.strip() != mount_id or not mount_id:
                 logger.warning(f"Invalid mount id '{mount_id}'; skipping")
@@ -259,7 +264,7 @@ def insert_mounts(container, dojo_challenge):
             # Root-own everything we copied
             exec_run(f"/run/dojo/bin/chown -R root:root {dest}", container=container)
         except Exception:
-            logger.exception(f"Error inserting mount '{mount_id}' for challenge {dojo_challenge.reference_id}")
+            logger.exception(f"Error inserting mount '{mount_elem}' for challenge {dojo_challenge.reference_id}")
 
 
 def insert_flag(container, flag):
