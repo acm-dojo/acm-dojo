@@ -130,7 +130,6 @@ The docker-compose.yml defines these services:
 - `pgbouncer` - Connection pooling for PostgreSQL
 - `cache` - Redis cache
 - `ctfd` - Main CTFd application
-- `caddy` - Modern reverse proxy with automatic HTTPS
 - `sshd` - SSH access service
 - `homefs` - Home directory management
 - `dojofs` - Workspace filesystem overlay
