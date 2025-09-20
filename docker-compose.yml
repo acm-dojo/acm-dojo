@@ -130,6 +130,7 @@ services:
       - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
       - MAC_HOSTNAME=${MAC_HOSTNAME}
       - MAC_USERNAME=${MAC_USERNAME}
+      - REGISTRATION_CODE=${REGISTRATION_CODE}
     volumes:
       - /data/CTFd/logs:/var/log/CTFd
       - /data/CTFd/uploads:/var/uploads

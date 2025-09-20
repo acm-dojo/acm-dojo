@@ -48,6 +48,15 @@
                         为你的账户安全选择一个强密码
                     </small>
                 </div>
+                {% if Configs.registration_code %}
+                <div class="form-group">
+                    <b><i class="fas fa-key"></i> {{ form.code.label }}</b>
+                    {{ form.code(class="form-control", placeholder="输入注册口令") }}
+                    <small class="form-text text-muted">
+                        需要有效的注册口令才能创建账户。请向课程教师或管理员获取。
+                    </small>
+                </div>
+                {% endif %}
 
                 {{ form.nonce() }}
 

@@ -92,6 +92,19 @@ Netdata dashboard is accessible on port 19999 (by default not exposed externally
 
 More of these configuration options (and defaults) can be found in [./dojo/dojo-init](./dojo/dojo-init).
 
+### Require Registration Code
+
+To require a registration code (invite token) during new user signup:
+
+- Set the environment variable `REGISTRATION_CODE` for the `ctfd` service. With docker-compose, export it before running deploy or add it to your `.env` file:
+
+```sh
+export REGISTRATION_CODE="your-secret-code"
+./deploy.sh -t  # or ./deploy.sh
+```
+
+When set, the registration page will show a code field and CTFd will enforce the code. You can also manage the registration code from the CTFd Admin Panel under Settings → General by setting the built-in field `Registration Code` (this uses the same CTFd setting `registration_code`).
+
 ## Updating
 
 When updating your dojo deployment, there is only one supported method in the `dojo` directory:

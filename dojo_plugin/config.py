@@ -89,6 +89,7 @@ DISCORD_GUILD_ID = os.getenv("DISCORD_GUILD_ID")
 INTERNET_FOR_ALL = bool(ast.literal_eval(os.getenv("INTERNET_FOR_ALL") or "False"))
 MAC_HOSTNAME = os.getenv("MAC_HOSTNAME")
 MAC_USERNAME = os.getenv("MAC_USERNAME")
+REGISTRATION_CODE = os.getenv("REGISTRATION_CODE")
 
 missing_errors = ["DOJO_HOST", "HOST_DATA_PATH"]
 for config_option in missing_errors:
@@ -107,6 +108,9 @@ def bootstrap():
     set_config("account_visibility", "public")
 
     set_config("ctf_theme", "dojo_theme")
+
+    if REGISTRATION_CODE:
+        set_config("registration_code", REGISTRATION_CODE)
 
     set_config("mail_server", MAIL_SERVER)
     set_config("mail_port", MAIL_PORT)
