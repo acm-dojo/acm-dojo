@@ -64,19 +64,6 @@ services:
           - nginx
         ipv4_address: 10.0.0.3
 
-  acme-companion:
-    container_name: nginx-proxy-acme
-    profiles:
-      - main
-    restart: always
-    image: nginxproxy/acme-companion:2.3
-    volumes_from:
-      - nginx-proxy
-    volumes:
-      - certs:/etc/nginx/certs:rw
-      - acme:/etc/acme.sh
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
   ctfd:
     container_name: ctfd
     profiles:
@@ -267,7 +254,6 @@ volumes:
   conf:
   html:
   certs:
-  acme:
 
 networks:
   default:
