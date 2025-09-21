@@ -40,6 +40,8 @@ if ! docker info >/dev/null 2>&1; then
 fi
 
 BRANCH="${1:-master}"
+REGISTRATION_CODE="${REGISTRATION_CODE:-dev}"
+DOJO_HOST="${DOJO_HOST:-localhost}"
 
 echo "Starting setup for branch: $BRANCH"
 
@@ -63,9 +65,9 @@ echo "Running new container with port forwarding (80:80, 443:443, 443:443/udp, 1
 docker run \
     --privileged \
     --name "$CONTAINER_NAME" \
-    -p "80:80" \
-    -p "443:443" \
-    -p "443:443/udp" \
+    -p "8080:80" \
+    -p "8443:443" \
+    -e REGISTRATION_CODE=$REGISTRATION_CODE \
     -d "$IMAGE_NAME"
 
 echo "Success! The container '$CONTAINER_NAME' is running."

@@ -272,20 +272,10 @@
     {% endif %}
   {% endfor %}
 
-  {% if visible_challenges and module.show_scoreboard %}
-
-  <h2 class="row" id="scoreboard-heading">30-Day Scoreboard:</h2>
-  <p>This scoreboard reflects solves for challenges in this module after the module launched in this dojo.</p>
-  {% from "macros/scoreboard.html" import scoreboard %}
-  {{ scoreboard() }}
-
-  {% endif %}
-
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script defer src="{{ url_for('views.themes', path='js/dojo/challenges.js') }}"></script>
-<script defer onload="loadScoreboard(30, 1);" src="{{ url_for('views.themes', path='js/dojo/scoreboard.js') }}"></script>
 <script defer src="{{ url_for('views.themes', path='js/dojo/actionbar.js') }}"></script>
 {% endblock %}
