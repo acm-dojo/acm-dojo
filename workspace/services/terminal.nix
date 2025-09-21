@@ -15,7 +15,6 @@ let
         --port 7681 \
         --interface 0.0.0.0 \
         --writable \
-        -t fontSize=14 \
         -t disableLeaveAlert=true \
         $SHELL --login
 
